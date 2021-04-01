@@ -5,6 +5,7 @@ const PostMessage = require('../models/postMessage')
 const getPosts = async (req, res) => {
   // retrieving all the post in the database
   try {
+    // finding the data will take time hence, we need wait for it 
     const postMessages = await PostMessage.find();
 
     // now we send all the messages as json
@@ -14,8 +15,18 @@ const getPosts = async (req, res) => {
   }
 }
 
-const createPost = (req, res) => {
-  res.send('Post Creation')
+const createPost = async (req, res) => {
+  // with post request we have access to request body
+  const post = req.body;
+
+  // we will now create a new post from the fields in req.body
+  const newPost = new PostMessage(post);
+
+  try {
+    await newPost.save();
+  } catch (error) {
+
+  }
 }
 
 module.exports = getPosts, createPost
