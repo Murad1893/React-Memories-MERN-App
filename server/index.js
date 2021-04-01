@@ -9,17 +9,19 @@ const postRoutes = require('./routes/posts')
 
 const port = process.env.PORT || process.env.port;
 const app = express();
-// now we can route!
-
-// setting up the posts route
-app.use('/posts', postRoutes)
 
 // no need to use body parser seperately 30 mb due to images
 app.use(express.json({ limit: "30mb", extended: true }))
 app.use(express.urlencoded({ limit: "30mb", extended: true }))
 
 // allowing cross origin requests for all!
+// we need to define app.cors() before setting the routes
 app.use(cors());
+
+// now we can route!
+
+// setting up the posts route
+app.use('/posts', postRoutes)
 
 mongoose.connect(process.env.uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => app.listen(port, () => { console.log(`Server running on port ${port}`) }))

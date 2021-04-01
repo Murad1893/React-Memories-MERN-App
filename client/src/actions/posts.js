@@ -1,4 +1,4 @@
-import * as api from '../api'
+import * as api from '../apis/index.js'
 
 // Actions creators : These are functions that return an action.
 // An action has a type and payload (data)
