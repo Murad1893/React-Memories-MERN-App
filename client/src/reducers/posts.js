@@ -5,7 +5,7 @@ const reducers = (posts = [], action) => { // because we are using it as a defau
       return action.payload // we will just return the payload
 
     case 'CREATE': // to create all the posts
-      return posts
+      return [...posts, action.payload] // now we will send all the posts along with the newly added post
 
     default:
       return posts

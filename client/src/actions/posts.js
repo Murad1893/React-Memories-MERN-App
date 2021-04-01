@@ -1,4 +1,4 @@
-import * as api from '../apis/index.js'
+import * as api from '../apis'
 
 // Actions creators : These are functions that return an action.
 // An action has a type and payload (data)
@@ -10,7 +10,7 @@ export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await api.fetchPosts() // the fetchPosts will return us the data
 
-    dispatch({ type: "FECTCH_ALL", payload: data })
+    dispatch({ type: "FETCH_ALL", payload: data })
   } catch (error) {
     console.log(error.message)
   }
@@ -20,4 +20,14 @@ export const getPosts = () => async (dispatch) => {
 
   // // dispatching the action instead of returning it
   // dispatch(action)
+}
+
+export const createPost = (post) => async (dispatch) => {
+  try {
+    const { data } = await api.createPost(post)
+    dispatch({ type: "CREATE", payload: data })
+  } catch (error) {
+    console.log(error.message)
+  }
+
 }

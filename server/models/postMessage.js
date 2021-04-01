@@ -19,5 +19,6 @@ const postSchema = mongoose.Schema({
 
 // converting schema to model
 const PostMessage = mongoose.model('PostMessage', postSchema)
+// Mongoose automatically looks for the plural, lowercased version of your model name. So postmessages
 
 module.exports = PostMessage

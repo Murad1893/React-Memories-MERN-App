@@ -16,17 +16,19 @@ const getPosts = async (req, res) => {
 }
 
 const createPost = async (req, res) => {
+
   // with post request we have access to request body
   const post = req.body;
-
   // we will now create a new post from the fields in req.body
   const newPost = new PostMessage(post);
-
   try {
     await newPost.save();
+    res.status(201).json(newPost)
   } catch (error) {
-
+    res.status(404)
+    console.log(error.message)
   }
+
 }
 
-module.exports = getPosts, createPost
+module.exports = { getPosts, createPost }
