@@ -2,7 +2,7 @@ const reducers = (state = [], action) => { // because we are using it as a defau
   switch (action.type) {
 
     case 'FETCH_ALL': // to fetch all the posts
-      return state
+      return action.payload // we will just return the payload
 
     case 'CREATE': // to create all the posts
       return state
