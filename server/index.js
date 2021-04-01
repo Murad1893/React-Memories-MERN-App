@@ -3,12 +3,16 @@ const mongoose = require("mongoose") // for database
 const cors = require("cors")// to allow for CORS between front-end and backend running on different PORTS
 require('dotenv').config()
 
+const postRoutes = require('./routes/posts')
+
 // to enable this new IMPORT syntax we need to set type : module in package.json
 
 const port = process.env.PORT || process.env.port;
 const app = express();
-
 // now we can route!
+
+// setting up the posts route
+app.use('/posts', postRoutes)
 
 // no need to use body parser seperately 30 mb due to images
 app.use(express.json({ limit: "30mb", extended: true }))
