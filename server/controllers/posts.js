@@ -1,5 +1,6 @@
 // this is done to seperate the routing from the actual logic
 
+const mongoose = require('mongoose');
 const PostMessage = require('../models/postMessage')
 
 const getPosts = async (req, res) => {
@@ -31,4 +32,22 @@ const createPost = async (req, res) => {
 
 }
 
-module.exports = { getPosts, createPost }
+const updatePost = async (req, res) => {
+  const { id: _id } = req.params; // this will rename the id to _id while reading from the params
+  const post = req.body;
+
+  if (!mongoose.Types.ObjectID.isValid(_id)) {
+    return res.status(404).send('No post with that id') // send error that post not found
+  }
+
+  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true }) // new: true will enable to receive the updated version of post
+  res.json(updatedPost) // now we can send over the updated post to the frontend
+}
+
+/**
+ * req.body reads the hson
+ * req.params reads from the url
+ * 
+ */
+
+module.exports = { getPosts, createPost, updatePost }
