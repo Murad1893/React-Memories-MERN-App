@@ -6,7 +6,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment'; // this used to calculate the time difference. Hence, fromNow()  5 minutes, 5 seconds earlier etc..
 import { useDispatch } from 'react-redux';
 
-import { likePost, deletePost } from '../../../actions/posts';
+import { likePost, deletePost, getCurrentId } from '../../../actions/posts';
 import useStyles from './styles';
 
 const Post = ({ post }) => { // we will get the post from the props hence (props) was destructured into ({post})
@@ -21,7 +21,7 @@ const Post = ({ post }) => { // we will get the post from the props hence (props
         <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
       </div>
       <div className={classes.overlay2}>
-        <Button style={{ color: 'white' }} size="small" onClick={() => { }}><MoreHorizIcon fontSize="default" /></Button>
+        <Button style={{ color: 'white' }} size="small" onClick={() => { dispatch(getCurrentId(post._id)) }}><MoreHorizIcon fontSize="default" /></Button>
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>

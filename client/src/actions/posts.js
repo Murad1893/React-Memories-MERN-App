@@ -31,3 +31,11 @@ export const createPost = (post) => async (dispatch) => {
   }
 
 }
+
+// to fetch the current Id of the clicked post
+export const getCurrentId = (currentId) => {
+  return {
+    type: "FETCH_ID",
+    payload: currentId
+  }
+}

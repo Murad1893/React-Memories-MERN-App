@@ -32,6 +32,8 @@ const createPost = async (req, res) => {
 
 }
 
+// request will be like 5000/post/id so we can access it from params
+
 const updatePost = async (req, res) => {
   const { id: _id } = req.params; // this will rename the id to _id while reading from the params
   const post = req.body;
