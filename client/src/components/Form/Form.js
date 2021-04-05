@@ -13,7 +13,14 @@ const Form = () => {
   })
   const classes = useStyles()
   const dispatch = useDispatch() // helps us to dispatch createPost action
-  const state = useSelector(state => state.state)
+  const post = useSelector((state) => state.editPost != '' ? state.posts.find((p) => p._id == state.editPost) : null)
+
+  // setting post data in case we have a currentId selected
+  useEffect(() => {
+    if (post) {
+      setPostData(post)
+    }
+  }, [post])
 
   // handler for the form submit action
   const handleSubmit = (e) => {
@@ -29,7 +36,7 @@ const Form = () => {
   return (
     <Paper className={classes.paper}>
       <form autoComplete="off" onValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-        <Typography variant='h6'> Creating a memory </Typography>
+        <Typography variant='h6'> {post ? "Editing" : "Creating"} a memory </Typography>
         <TextField
           name='creator'
           variant='outlined'
