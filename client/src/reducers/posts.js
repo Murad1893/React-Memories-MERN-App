@@ -11,6 +11,9 @@ const reducers = (posts = [], action) => { // because we are using it as a defau
       // we will return the posts with the updated post
       return posts.map((post) => post._id === action.payload._id ? action.payload : post)
 
+    case 'DELETE':
+      return posts.filter((post) => post._id !== action.payload) // so only return post which are not equal to req.params.id
+
     default:
       return posts
   }

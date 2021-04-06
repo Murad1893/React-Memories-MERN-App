@@ -6,7 +6,7 @@ const postRouter = require('../controllers/posts')
 router.get('/', postRouter.getPosts)
 router.post('/', postRouter.createPost)
 router.patch('/:id', postRouter.updatePost) // we will make the id dynamic
-
+router.delete('/:id', postRouter.deletePost)
 /**
  * PATCH VS PUT:
  *  For example, when you want to change the first name of a person in a database, you need to send the entire resource when making a PUT request.

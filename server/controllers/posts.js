@@ -59,4 +59,20 @@ const updatePost = async (req, res) => {
  * 
  */
 
-module.exports = { getPosts, createPost, updatePost }
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    if (mongoose.isValidObjectId(id)) {
+      await PostMessage.findByIdAndRemove(id)
+
+      res.send('Post deleted successfully')
+    } else {
+      res.status(404).send("Invalid id")
+    }
+  } catch (error) {
+    res.send(error.message)
+  }
+}
+
+module.exports = { getPosts, createPost, updatePost, deletePost }

@@ -42,6 +42,16 @@ export const updatePost = (id, post) => async (dispatch) => {
   }
 }
 
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    // we don't need the response here
+    await api.deletePost(id)
+    dispatch({ type: "DELETE", payload: id })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 // to fetch the current Id of the clicked post
 export const getCurrentId = (currentId) => {
   return {
