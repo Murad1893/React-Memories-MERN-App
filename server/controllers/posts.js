@@ -40,8 +40,8 @@ const updatePost = async (req, res) => {
 
     const { id } = req.params
     const post = req.body
-    if (mongoose.isValidObjectId(id)) {
-      const updatedPost = await PostMessage.findByIdAndUpdate(id, { ...post, id }, { new: true })
+    if (mongoose.isValidObjectId(id)) { // mongoose function to check whether id valid or not
+      const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true })
       res.send(updatedPost)
     }
     else {
