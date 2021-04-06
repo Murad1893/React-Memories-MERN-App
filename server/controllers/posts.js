@@ -35,15 +35,22 @@ const createPost = async (req, res) => {
 // request will be like 5000/post/id so we can access it from params
 
 const updatePost = async (req, res) => {
-  const { id: _id } = req.params; // this will rename the id to _id while reading from the params
-  const post = req.body;
+  try {
+    console.log(req.body)
 
-  if (!mongoose.Types.ObjectID.isValid(_id)) {
-    return res.status(404).send('No post with that id') // send error that post not found
+    const { id } = req.params
+    const post = req.body
+    if (mongoose.isValidObjectId(id)) {
+      const updatedPost = await PostMessage.findByIdAndUpdate(id, { ...post, id }, { new: true })
+      res.send(updatedPost)
+    }
+    else {
+      res.status(404).send("Invalid id")
+    }
+  } catch (error) {
+    res.send(error.message)
   }
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true }) // new: true will enable to receive the updated version of post
-  res.json(updatedPost) // now we can send over the updated post to the frontend
 }
 
 /**

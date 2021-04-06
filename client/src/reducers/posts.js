@@ -7,9 +7,12 @@ const reducers = (posts = [], action) => { // because we are using it as a defau
     case 'CREATE': // to create all the posts
       return [...posts, action.payload] // now we will send all the posts along with the newly added post
 
+    case 'UPDATE':
+      // we will return the posts with the updated post
+      return posts.map((post) => post._id === action.payload._id ? action.payload : post)
+
     default:
       return posts
-
   }
 
 }

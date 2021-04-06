@@ -3,7 +3,7 @@ import useStyles from './styles'
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
-import { createPost } from '../../actions/posts'
+import { createPost, clearCurrentId, updatePost } from '../../actions/posts'
 
 const Form = () => {
 
@@ -13,8 +13,8 @@ const Form = () => {
   })
   const classes = useStyles()
   const dispatch = useDispatch() // helps us to dispatch createPost action
-  const post = useSelector((state) => state.editPost != '' ? state.posts.find((p) => p._id == state.editPost) : null)
-
+  const post = useSelector((state) => state.editPost !== '' ? state.posts.find((p) => p._id === state.editPost) : null)
+  const currentId = useSelector((state) => state.editPost)
   // setting post data in case we have a currentId selected
   useEffect(() => {
     if (post) {
@@ -26,11 +26,20 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(createPost(postData));
+    // if we are editing the post then it must call update post else it will create a post
+    if (post) {
+      dispatch(updatePost(currentId, postData))
+    }
+    else {
+      dispatch(createPost(postData));
+    }
+    clear();
   }
 
   const clear = () => {
-
+    // wil clear all the fields and update the state
+    dispatch(clearCurrentId())
+    setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
   }
 
   return (
